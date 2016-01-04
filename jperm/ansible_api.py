@@ -151,7 +151,8 @@ class MyRunner(MyInventory):
                 groups = [line.split(':')[0] for line in lines]
                 if module_name == 'user_check':
                     for g in groups:
-                        if module_args.find(g):
+                        temp_name = 'name='+g
+                        if module_args.split(' ')[0] == temp_name:
                             temp_list.append(node)
                             break
             if temp_list:

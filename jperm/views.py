@@ -279,6 +279,9 @@ def perm_role_add(request):
     if request.method == "POST":
         # 获取参数： name, comment
         name = request.POST.get("role_name", "")
+        if name == 'root':
+            error = u'不允许添加root用户为系统用户'
+            return my_render('jperm/perm_role_add.html', locals(), request)
         comment = request.POST.get("role_comment", "")
         password = request.POST.get("role_password", "")
         key_content = request.POST.get("role_key", "")
