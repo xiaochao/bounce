@@ -15,6 +15,7 @@
             </span>
         </a>
         <ul class="dropdown-menu animated fadeInRight m-t-xs">
+            {% load url from future %}
             <li><a value="{% url 'user_profile' %}?id={{ session_user_id }}" class="iframe_user">个人信息</a></li>
             <li><a href="{% url 'user_update' %}">修改信息</a></li>
 {#            {% if not user.role == 'CU' %}#}

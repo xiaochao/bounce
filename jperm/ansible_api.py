@@ -131,7 +131,7 @@ class MyRunner(MyInventory):
         module_name: ansible module_name
         module_args: ansible module args
         """
-        if module_name == 'user':
+        if module_name == 'user_check':
             hoc = Runner(module_name='command',
                          module_args='cat /etc/group',
                          timeout=timeout,
@@ -149,7 +149,7 @@ class MyRunner(MyInventory):
             for node in output.keys():
                 lines = output[node]['stdout'].split('\n')
                 groups = [line.split(':')[0] for line in lines]
-                if module_name == 'user':
+                if module_name == 'user_check':
                     for g in groups:
                         if module_args.find(g):
                             temp_list.append(node)
@@ -350,6 +350,12 @@ class MyTask(MyRunner):
         """
         add a host user.
         """
+        aa = username.split('-')
+        if len(aa) == 1:
+            module_name = 'user_check'
+            username = aa[0]
+        else:
+            module_name = 'user'
 
         if password:
             encrypt_pass = sha512_crypt.encrypt(password)
@@ -357,7 +363,8 @@ class MyTask(MyRunner):
         else:
             module_args = 'name=%s shell=/bin/bash' % username
 
-        temp = self.run("user", module_args, become=True)
+
+        temp = self.run(module_name, module_args, become=True)
         flag = temp.get('flag', True)
         if not flag:
             return temp

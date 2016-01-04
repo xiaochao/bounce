@@ -479,18 +479,19 @@ def perm_role_push(request):
         # 调用Ansible API 进行推送
         password_push = True if request.POST.get("use_password") else False
         key_push = True if request.POST.get("use_publicKey") else False
+        confirm = '-1' if request.POST.get("confirm") else ''
         task = MyTask(push_resource)
         ret = {}
 
         # 因为要先建立用户，所以password 是必选项，而push key是在 password也完成的情况下的 可选项
         # 1. 以秘钥 方式推送角色
         if key_push:
-            ret["pass_push"] = task.add_user(role.name, CRYPTOR.decrypt(role.password))
+            ret["pass_push"] = task.add_user(role.name+confirm, CRYPTOR.decrypt(role.password))
             ret["key_push"] = task.push_key(role.name, os.path.join(role.key_path, 'id_rsa.pub'))
 
         # 2. 推送账号密码
         elif password_push:
-            ret["pass_push"] = task.add_user(role.name, CRYPTOR.decrypt(role.password))
+            ret["pass_push"] = task.add_user(role.name+confirm, CRYPTOR.decrypt(role.password))
 
         flag = ret['pass_push'].get('flag', True)
         if not flag:

@@ -292,11 +292,7 @@ def get_disk_info(disk_info):
         else:
             disk_size = ''
     except Exception:
-<<<<<<< HEAD
-        disk_size = ''
-=======
         disk_size = disk_info
->>>>>>> 2ba9c53c202f1678ef3cfc2768cfa5942fb5e474
     return disk_size
 
 

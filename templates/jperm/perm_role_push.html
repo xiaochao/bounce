@@ -135,15 +135,36 @@ $('#pushForm').validator({
 });
 
 $("#submit_button").click(function() {
-    var data = $("#pushForm").serialize();
+    var post_data = $("#pushForm").serialize();
     $.ajax({
         url: "",
-        data: data,
+        data: post_data,
         dataType: "json",
         type: "post",
         cache: false,
         success: function(data){
-            alert(data);
+            if(data.flag == 1){
+                var res = confirm(data.message);
+                post_data += "&confirm=1"
+                if(res){
+                    $.ajax({
+                        url: "",
+                        data: post_data,
+                        dataType: "json",
+                        type: "post",
+                        cache: false,
+                        success: function(data){
+                            console.log(data);
+                            alert("添加成功");
+                        },
+                        error: function(data){
+                            alert("network error");
+                        }
+                    });
+                }
+            } else {
+                alert("添加成功");
+            }
         },
         error: function(data){
             alert("network error");
