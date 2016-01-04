@@ -129,7 +129,7 @@
                                     <td class="text-center">{{ asset.system_type|default_if_none:"" }}{{ asset.system_version|default_if_none:"" }}</td>
                                     <td class="text-center"> {{ asset.cpu|get_cpu_core|default_if_none:"" }} </td>
                                     <td class="text-center"> {{ asset.memory|default_if_none:"" }}{% if asset.memory %}G{% endif %}</td>
-                                    <td class="text-center"> {{ asset.disk|get_disk_info }}{% if asset.memory %}G{% endif %}</td>
+                                    <td class="text-center"> {{ asset.disk|get_disk_info }}{% if asset.disk %}G{% endif %}</td>
                                     <td class="text-center" data-editable='false'>
                                         <a href="{% url 'asset_edit' %}?id={{ asset.id }}" class="btn btn-xs btn-info">编辑</a>
                                         <a value="{{ asset.id }}" class="conn btn btn-xs btn-warning">连接</a>
@@ -233,6 +233,7 @@
                         layer.alert('没有授权系统用户')
                     }
                     else if (dataArray.length == 1 && data != 'error' && navigator.platform == 'Win32'){
+                        /*
                         var title = 'Jumpserver Web Terminal' + '<span class="text-info"> '+ hostname +'</span>';
                         layer.open({
                             type: 2,
@@ -242,8 +243,10 @@
                             area: ['628px', '420px'],
                             content: new_url+data
                         });
+                        */
+                        window.open(new_url+data, '', 'width=628px, height=420px')
                     }  else if (dataArray.length == 1 && data != 'error'){
-                       layer.open({
+                       /*layer.open({
                             type: 2,
                             title: title,
                             maxmin: true,
@@ -251,6 +254,9 @@
                             area: ['628px', '452px'],
                             content: new_url+data
                         });
+                        */
+                        window.open(new_url+data, '', 'width=628px, height=440px')
+
                     }
                     else {
                         aUrl = '';
@@ -276,6 +282,7 @@
         var hostname = $(a).attr('value');
         var title = 'Jumpserver Web Terminal - ' + '<span class="text-info"> '+ hostname +'</span>';
         if (navigator.platform == 'Win32'){
+            /*
             layer.open({
             type: 2,
             title: title,
@@ -286,6 +293,11 @@
             });
 
         } else {
+            */
+            window.open(new_url, '', 'height=628px, width=420px')
+
+        } else {
+            /*
             layer.open({
             type: 2,
             title: title,
@@ -294,6 +306,8 @@
             shade: false,
             content: new_url
             });
+            */
+            window.open(new_url, '', 'height=628px, width=452px')
         }
 
         return false
@@ -310,7 +324,6 @@
              shade: false,
              content: new_url
         });
-         console.log(new_url);
         return false
     }
 

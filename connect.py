@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # coding: utf-8
 
 import sys
@@ -290,7 +291,7 @@ class Tty(object):
 
         # 发起ssh连接请求 Make a ssh connection
         ssh = paramiko.SSHClient()
-        ssh.load_system_host_keys()
+        #ssh.load_system_host_keys()
         ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
         try:
             role_key = connect_info.get('role_key')
@@ -684,7 +685,7 @@ class Nav(object):
                     res = gen_resource({'user': self.user, 'asset': assets}, perm=self.user_perm)
                     runner = MyRunner(res)
                     asset_name_str = ''
-                    print "匹配用户:\n"
+                    print "匹配主机:\n"
                     for inv in runner.inventory.get_hosts(pattern=pattern):
                         asset_name_str += '%s ' % inv.name
                         print ' %s' % inv.name
@@ -799,7 +800,9 @@ def main():
                     color_print('请输入正确ID', 'red')
                 except ServerError, e:
                     color_print(e, 'red')
-    except IndexError:
+    except Exception, e:
+        color_print(e)
+        time.sleep(5)
         pass
 
 if __name__ == '__main__':

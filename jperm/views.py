@@ -1,7 +1,11 @@
 # -*- coding: utf-8 -*-
 
 from django.db.models import Q
+<<<<<<< HEAD
 from django.http import HttpResponseBadRequest, HttpResponseNotAllowed, HttpResponse
+=======
+from django.http import HttpResponseBadRequest, HttpResponseNotAllowed
+>>>>>>> 2ba9c53c202f1678ef3cfc2768cfa5942fb5e474
 from paramiko import SSHException
 from jperm.perm_api import *
 
@@ -17,9 +21,12 @@ from jumpserver.api import my_render, get_object, CRYPTOR
 
 # 设置PERM APP Log
 from jumpserver.settings import LOG_LEVEL
+<<<<<<< HEAD
 
 import simplejson as json
 
+=======
+>>>>>>> 2ba9c53c202f1678ef3cfc2768cfa5942fb5e474
 logger = set_log(LOG_LEVEL, filename='jumpserver_perm.log')
 
 
