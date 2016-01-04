@@ -353,16 +353,15 @@ class MyTask(MyRunner):
         aa = username.split('-')
         if len(aa) == 1:
             module_name = 'user_check'
-            username = aa[0]
         else:
             module_name = 'user'
+            username = aa[0]
 
         if password:
             encrypt_pass = sha512_crypt.encrypt(password)
             module_args = 'name=%s shell=/bin/bash password=%s' % (username, encrypt_pass)
         else:
             module_args = 'name=%s shell=/bin/bash' % username
-
 
         temp = self.run(module_name, module_args, become=True)
         flag = temp.get('flag', True)
