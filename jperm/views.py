@@ -1,11 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.db.models import Q
-<<<<<<< HEAD
 from django.http import HttpResponseBadRequest, HttpResponseNotAllowed, HttpResponse
-=======
-from django.http import HttpResponseBadRequest, HttpResponseNotAllowed
->>>>>>> 2ba9c53c202f1678ef3cfc2768cfa5942fb5e474
 from paramiko import SSHException
 from jperm.perm_api import *
 
@@ -21,12 +17,7 @@ from jumpserver.api import my_render, get_object, CRYPTOR
 
 # 设置PERM APP Log
 from jumpserver.settings import LOG_LEVEL
-<<<<<<< HEAD
-
 import simplejson as json
-
-=======
->>>>>>> 2ba9c53c202f1678ef3cfc2768cfa5942fb5e474
 logger = set_log(LOG_LEVEL, filename='jumpserver_perm.log')
 
 
@@ -504,7 +495,7 @@ def perm_role_push(request):
         flag = ret['pass_push'].get('flag', True)
         if not flag:
             logger.debug('user already exists on machines %s' % ','.join(ret['pass_push']['nodes']))
-            return HttpResponse(json.dumps(ret['pass_push']))
+            return HttpResponse(json.dumps({'flag': 1, 'message': 'user already exists on machines %s' % ','.join(ret['pass_push']['nodes'])}))
             
 
         # 3. 推送sudo配置文件
@@ -554,10 +545,12 @@ def perm_role_push(request):
 
         if not failed_asset:
             msg = u'系统用户 %s 推送成功[ %s ]' % (role.name, ','.join(success_asset.keys()))
+            return HttpResponse(json.dumps({'flag': 0}))
         else:
             error = u'系统用户 %s 推送失败 [ %s ], 推送成功 [ %s ] 进入系统用户详情，查看失败原因' % (role.name,
                                                                 ','.join(failed_asset.keys()),
                                                                 ','.join(success_asset.keys()))
+            return HttpResponse(json.dumps({'flag': 1, 'message': error}))
     return my_render('jperm/perm_role_push.html', locals(), request)
 
 

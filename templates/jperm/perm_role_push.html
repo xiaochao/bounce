@@ -134,6 +134,23 @@ $('#pushForm').validator({
         }
 });
 
+$("#submit_button").click(function() {
+    var data = $("#pushForm").serialize();
+    $.ajax({
+        url: "",
+        data: data,
+        dataType: "json",
+        type: "post",
+        cache: false,
+        success: function(data){
+            alert(data);
+        },
+        error: function(data){
+            alert("network error");
+        }
+    });
+    return false;
+});
 
 
 var config = {
