@@ -4571,3 +4571,11 @@ body.skin-3 {
 }
 
 .n-invalid {border: 1px solid #f00;}
+
+#avatar-box{
+    cursor: pointer;
+}
+
+input#upload-avatar{
+    display: none;
+}
