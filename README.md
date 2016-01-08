@@ -64,11 +64,3 @@ Web批量执行命令
 [demo站点](http://demo.jumpserver.org)
 
 交流群: 399218702
-
-### 团队
-
-![](https://github.com/ibuler/static/raw/master/jumpserver3/team.jpg)
-
-
-
-
