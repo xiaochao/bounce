@@ -36,30 +36,33 @@
     </div>
 </li>
 <script>
-    $("upload-avatar").on("change", function() {
+    $("#upload-avatar").on("change", function() {
         var file = this.files[0];
         if(!file || !/image\/\w+/.test(file.type)) {
-            alert(文件格式错误，请重新选择!);
+            alert("文件格式错误，请重新选择!");
             return false;
         }
+        var fd = new FormData();
+        fd.append("avatar", file);
+        fd.append("action", "jsdfkjsd");
+        $.ajax({
+            type: "POST",
+            url: "/juser/user/avatar",
+            data: fd,
+            processData: false,
+            success: function(data) {
+                console.log(data);
+            },
+        });
         var reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = function() {
             $("#avatar-box img").attr("src", this.result);
         };
-        var fd = new FormData();
-        fd.append("avatar", file);
-        $.ajax({
-            url: ""
-            type: "POST",
-            data: fd,
-            success: function(data) {
-                console.log(data);
-            }
-        });
+
     });
     $("#avatar-box").click(function() {
-        $("#upload-avatar").click();
+        $("#upload-avatar").get(0).click();
     });
     $(".iframe_user").on('click', function(){
         var url= $(this).attr("value");

@@ -41,15 +41,15 @@
                             </div>
                             <div class="hr-line-dashed"></div>
 
-                            <div class="form-group" id="resource">
+                            <div class="form-group">
                                     <label for="s_radio" class="col-sm-offset-2 col-sm-2 control-label">
-                                        <input type="radio" name="s_radio" id="s_radio" value="单台机器添加" checked>单台机器添加
+                                        <input type="radio" name="s_radio" id="s_radio" value="1" checked>单台机器添加
                                     </label>
                                     <label for="g_radio" class="col-sm-2 control-label">
-                                        <input type="radio" name="g_radio" id="g_radio" value="按组添加">按组添加
+                                        <input type="radio" name="s_radio" id="g_radio" value="2">按组添加
                                     </label>
                             </div>
-                            <div class="hr-line-dashed"></div>
+                            <div class="hr-line-dashed" id="sl"></div>
                             <div class="form-group" id="resource">
                                 <label for="asset" class="col-sm-2 control-label">资产</label>
                                 <div class="col-sm-8">
@@ -60,8 +60,8 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="hr-line-dashed"></div>
-                            <div class="form-group" id="resource_group">
+                            <div class="hr-line-dashed" id="sg" style="display: none"></div>
+                            <div class="form-group" id="resource_group" style="display: none">
                                 <label for="assetgroup" class="col-sm-2 control-label">资产组</label>
                                 <div class="col-sm-8">
                                     <select name="asset_groups" data-placeholder="请选择资产组" class="chosen-select form-control m-b" multiple  tabindex="2">
@@ -142,6 +142,21 @@ $('#pushForm').validator({
     valid: function(form) {
             form.submit();
         }
+});
+
+$("#s_radio").click(function(){
+    $("#sg").css("display","none");
+    $("#resource_group").css("display","none");
+    $("#sl").css("display","");
+    $("#resource").css("display","");
+    $("#s_radio").attr("checked", "checked");
+});
+$("#g_radio").click(function(){
+    $("#sl").css("display","none");
+    $("#resource").css("display","none");
+    $("#sg").css("display","");
+    $("#resource_group").css("display","");
+    $("#g_radio").attr("checked", "checked");
 });
 
 $("#submit_button").click(function() {

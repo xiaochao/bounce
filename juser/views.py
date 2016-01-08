@@ -5,6 +5,10 @@
 # import random
 # from Crypto.PublicKey import RSA
 import uuid
+import upyun
+import string
+from qiniu import Auth, put_data
+import simplejson as json
 from django.contrib.auth.decorators import login_required
 
 from django.db.models import Q
@@ -12,7 +16,6 @@ from juser.user_api import *
 from jperm.perm_api import get_group_user_perm
 
 MAIL_FROM = EMAIL_HOST_USER
-
 
 @require_role(role='super')
 def group_add(request):
@@ -304,6 +307,26 @@ def forget_password(request):
             error = u'用户不存在或邮件地址错误'
 
     return render_to_response('juser/forget_password.html', locals())
+
+
+@defend_attack
+def upload_avatar(request):
+    if request.method == 'POST':
+        print request.POST
+        print request.FILES
+        image_name = ''
+        '''try:
+            q = Auth('ylQC8EgbJjYVLBChocIRmkrAfslPi9tuwDU33kSF', '_q0uF0hKPDWWUz2yyToS8WDfKQCtu3bEog-m38fr')
+            image_name = ''.join(random.sample(string.letters+string.letters, 32))
+            token = q.upload_token('gaijule')
+            ret, info = put_data(token, image_name, content[0].encode('utf-8'),
+                                 mime_type="application/octet-stream", check_crc=True)
+            print info
+        except:
+            import traceback
+            traceback.print_exc()
+        url = 'http://7u2fms.com1.z0.glb.clouddn.com/images/'+image_name'''
+        return HttpResponse(json.dumps({'flag': 1, 'message': 'success'}))
 
 
 @defend_attack
