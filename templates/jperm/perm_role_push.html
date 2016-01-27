@@ -156,6 +156,9 @@ $("#g_radio").click(function(){
     $("#resource").css("display","none");
     $("#sg").css("display","");
     $("#resource_group").css("display","");
+    var w = $("input[name=id]").width();
+    $("select[name=asset_groups] ~ .chosen-container").css("width",w+"px");
+    $("select[name=asset_groups] ~ .chosen-container input").css("width",w+"px");
     $("#g_radio").attr("checked", "checked");
 });
 

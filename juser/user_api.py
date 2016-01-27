@@ -170,10 +170,11 @@ def user_add_mail(user, kwargs):
         您的权限： %s
         您的web登录密码： %s
         您的ssh密钥文件密码： %s
+        登陆地址： %s
         密钥下载地址： %s/juser/key/down/?uuid=%s
-        说明： 请登陆后再下载密钥！
+        说明： 请登陆后再下载密钥！如果无法访问jump.yangcong.com,请添加hosts:42.159.230.138 jump.yangcong.com
     """ % (user.name, user.username, user_role.get(user.role, u'普通用户'),
-           kwargs.get('password'), kwargs.get('ssh_key_pwd'), URL, user.uuid)
+           kwargs.get('password'), kwargs.get('ssh_key_pwd'), URL, URL, user.uuid)
     send_mail(mail_title, mail_msg, MAIL_FROM, [user.email], fail_silently=False)
 
 
